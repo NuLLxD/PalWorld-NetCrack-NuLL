@@ -222,15 +222,12 @@ namespace DX11_Base
             //Credit emoisback & Zanzer
             if (ImGui::Button("Easy Pal Condensation", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
-                auto easycondense = signature("E8 ?? ?? ?? ?? 89 ?? ?? ?? 00 00 E9 ?? ?? ?? ?? 33").GetPointer();
-
-                BYTE patch[] = {
-                    0x31, 0xC0, 0xFF, 0xC0, 0x90
-                };
-
-                memory::WriteToMemory(easycondense, patch, 5);
+                SDK::TMap<int32, int32> RankRequired = SDK::TMap<int32, int32>();
+                SDK::UWorld *world = Config.GetUWorld();
+                SDK::UPalUtility *aPalUtility = SDK::UPalUtility::GetDefaultObj();
+                aPalUtility->GetGameSetting(world)->CharacterRankUpRequiredNumDefault = 1;
+                aPalUtility->GetGameSetting(world)->CharacterRankUpRequiredNumMap = RankRequired;
             }
-
         }
 
         void TABConfig()
