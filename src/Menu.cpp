@@ -374,7 +374,7 @@ namespace DX11_Base
 
             ImGui::InputInt("Num To Add", &num_to_add);
 
-            ImGui::Combo("Item Category", &category, "Accessories\0Ammo\0Armor\0Blueprints\0Crafting Materials\0Eggs\0Food\0Hats\0Medicine\0Money\0Other\0Pal Sphere\0Saddles\0Seeds\0Tools\0Weapons\0");
+            ImGui::Combo("Item Category", &category, "Accessories\0Ammo\0Armor\0Blueprints\0Crafting Materials\0Eggs\0Food\0Hats\0Medicine\0Money\0Other\0Pal Sphere\0Saddles\0Seeds\0Skill Fruits\0Tools\0Weapons\0");
 
             std::initializer_list list = itemlist::accessories;
 
@@ -419,10 +419,13 @@ namespace DX11_Base
             case 13:
                 list = itemlist::seeds;
                 break;
-            case 14:
+	    case 14:
+    		list = itemlist::skillfruit;
+		break;
+            case 15:
                 list = itemlist::tools;
                 break;
-            case 15:
+            case 16:
                 list = itemlist::weapons;
                 break;
             default:
