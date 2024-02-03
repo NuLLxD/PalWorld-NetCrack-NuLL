@@ -667,10 +667,10 @@ void TpToLastWaypoint(bool removeAfter)
 	if (locationMarks.Count() < 1)
 		return;
 
-	AnyWhereTP(locationMarks[locationMarks.Count()-1]->Location, false);
+	AnyWhereTP(locationMarks[locationMarks.Count() - 1]->Location, false);
 			
 	if(removeAfter)
-		aPalUtility->GetLocationManager(world)->RemoveLocalCustomLocation(locationMarks[0]->ID);
+		aPalUtility->GetLocationManager(world)->RemoveLocalCustomLocation(locationMarks[locationMarks.Count() - 1]->ID);
 }
 
 void RenderWaypointsToScreen()
