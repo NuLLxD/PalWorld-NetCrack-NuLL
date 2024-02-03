@@ -31,9 +31,9 @@ This assumes you have Visual Studio 2022 installed
 ## Exploits
 
 - Safe Teleport
+- Teleport Home, to the last Waypoint set, or using raw coordinates
 - Open Entity List
 - Give EXP
-- Teleport Home
 - Toggle Fly
 - Revive
 - Item Spawner
