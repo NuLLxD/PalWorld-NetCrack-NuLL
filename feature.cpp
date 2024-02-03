@@ -662,7 +662,7 @@ void TpToLastWaypoint(bool removeAfter)
 {
 	auto world = Config.GetUWorld();
 	auto aPalUtility = SDK::UPalUtility::GetDefaultObj();
-	SDK::TArray<SDK::UPalLocationPoint_Custom*> locationMarks = aPalUtility->GetLocationManager(world)->CustomLocations;
+	auto locationMarks = aPalUtility->GetLocationManager(world)->CustomLocations;
 		
 	if (locationMarks.Count() < 1)
 		return;
