@@ -337,11 +337,6 @@ namespace DX11_Base
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
                 ImGui::SliderFloat("##ENT_CAP_DISTANCE", &Config.mDebugEntCapDistance, 1.0f, 100.f, "%.0f", ImGuiSliderFlags_AlwaysClamp);
             }
-
-            if (ImGui::Button("Remake Character", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
-            {
-                RemakeCharacter();
-            }
         }
 
         void TABTeleporter()

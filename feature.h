@@ -74,5 +74,3 @@ float GetDistanceToActor(SDK::AActor* pLocal, SDK::AActor* pTarget);
 int GetCurrentWaypointCount();
 
 void TpToLastWaypoint(bool removeAfter = true);
-
-void RemakeCharacter();

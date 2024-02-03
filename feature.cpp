@@ -711,11 +711,6 @@ float GetDistanceToActor(AActor* pLocal, AActor* pTarget)
 	return distance / 100.0f;
 }
 
-void RemakeCharacter()
-{
-	Config.GetPalPlayerCharacter()->GetPalPlayerController()->Debug_RerollCharacterMake();
-}
-
 ///	OLDER METHODS
 //SDK::FPalDebugOtomoPalInfo palinfo = SDK::FPalDebugOtomoPalInfo();
 //SDK::TArray<SDK::EPalWazaID> EA = { 0U };
