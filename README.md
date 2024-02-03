@@ -2,7 +2,8 @@
 
 Simple internal built with various code snippets and SDK from UC.me
 
-- Note: The master branch does not include visuals
+> [!Note]
+> Built for Steam release v0.1.4.0
 
 # Steps to build
 
@@ -46,10 +47,11 @@ This assumes you have Visual Studio 2022 installed
 
 ## Entity List
 
-- This menu displays a list of nearby entities (Players, NPCs and monsters) which you can TP to and/or kill.
-- List can be filtered for playeyers and pals.
+- Displays list of nearby entities (Players, NPCs and monsters)
+- Filter list for players and/or pals
+- Teleport to selected entity
+- Kill entity or set to 1 HP
 - Force Join Guild
-- Set 1 HP
 - 'Mask It' can be used on your player entity to hide player name.
 
 ## Misc
