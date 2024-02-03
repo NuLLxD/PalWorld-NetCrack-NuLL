@@ -658,6 +658,11 @@ void DeleteWaypoint(DWORD index)
 	// Optionally, you can also update your logic to save changes if needed
 }
 
+int GetCurrentWaypointCount()
+{
+	return SDK::UPalUtility::GetDefaultObj()->GetLocationManager(Config.GetUWorld())->CustomLocations.Count();
+}
+
 void TpToLastWaypoint(bool removeAfter)
 {
 	auto world = Config.GetUWorld();
@@ -704,6 +709,11 @@ float GetDistanceToActor(AActor* pLocal, AActor* pTarget)
 	double distance = sqrt(pow(pTargetLocation.X - pLocation.X, 2.0) + pow(pTargetLocation.Y - pLocation.Y, 2.0) + pow(pTargetLocation.Z - pLocation.Z, 2.0));
 
 	return distance / 100.0f;
+}
+
+void RemakeCharacter()
+{
+	Config.GetPalPlayerCharacter()->GetPalPlayerController()->Debug_RerollCharacterMake();
 }
 
 ///	OLDER METHODS

@@ -337,6 +337,11 @@ namespace DX11_Base
                 ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
                 ImGui::SliderFloat("##ENT_CAP_DISTANCE", &Config.mDebugEntCapDistance, 1.0f, 100.f, "%.0f", ImGuiSliderFlags_AlwaysClamp);
             }
+
+            if (ImGui::Button("Remake Character", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            {
+                RemakeCharacter();
+            }
         }
 
         void TABTeleporter()
@@ -359,12 +364,19 @@ namespace DX11_Base
 
             if (ImGui::Button("LastWaypointTP"))
             {
+
                 TpToLastWaypoint(Config.WaypointTpCleanup);
             }
 
             ImGui::SameLine();
 
             ImGui::Checkbox("DeleteWaypointAfterTP", &Config.WaypointTpCleanup);
+
+            ImGui::SameLine();
+
+            // TP to every new waypoint that gets set
+            // TODO: button labeling (generally everywhere)
+            ImGui::Checkbox("AutomaticWaypointTP", &Config.AutoWaypointTP); 
 
             ImGui::BeginChild("ScrollingRegion", ImVec2(0, 500), true);
             for (const auto& pair : database::locationMap)
@@ -944,6 +956,14 @@ namespace DX11_Base
         {
             SetInfiniteAmmo(false);
         }
+
+
+        if (Config.AutoWaypointTP && GetCurrentWaypointCount() > Config.AutoWaypointTpLastCount)
+        {
+            TpToLastWaypoint(true);
+        }
+
+        Config.AutoWaypointTpLastCount = GetCurrentWaypointCount();
 
         //  
         //  SetDemiGodMode(Config.IsMuteki);
