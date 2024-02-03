@@ -57,6 +57,7 @@ public:
 	SDK::UObject* WorldContextObject = NULL;
 	int AddItemSlot = 0;
 	int AddItemCount = 2;
+	bool WaypointTpCleanup;
 
 	enum QuickItemSet
 	{

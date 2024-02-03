@@ -348,12 +348,24 @@ namespace DX11_Base
                 RespawnLocalPlayer(Config.IsSafe);
 
             ImGui::InputFloat3("Pos", Config.Pos);
+
             ImGui::SameLine();
+
             if (ImGui::Button("TP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 SDK::FVector vector = { Config.Pos[0],Config.Pos[1],Config.Pos[2] };
                 AnyWhereTP(vector, Config.IsSafe);
             }
+
+            if (ImGui::Button("LastWaypointTP"))
+            {
+                TpToLastWaypoint(Config.WaypointTpCleanup);
+            }
+
+            ImGui::SameLine();
+
+            ImGui::Checkbox("DeleteWaypointAfterTP", &Config.WaypointTpCleanup);
+
             ImGui::BeginChild("ScrollingRegion", ImVec2(0, 500), true);
             for (const auto& pair : database::locationMap)
             {
