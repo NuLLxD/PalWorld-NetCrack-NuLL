@@ -707,12 +707,6 @@ namespace DX11_Base
                         }
                     }
                 }
-                ImGui::SameLine();
-                if (ImGui::Button("Join Guild"))
-                {
-                    if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
-                        ForceJoinGuild(Character);
-                }
                 /*if (Character->IsA(SDK::APalPlayerCharacter::StaticClass()))
                 {
                     ImGui::SameLine();
@@ -731,6 +725,12 @@ namespace DX11_Base
                 }*/
                 if (Character->IsA(SDK::APalPlayerCharacter::StaticClass()))
                 {
+                    ImGui::SameLine();
+                    if (ImGui::Button("Join Guild"))
+                    {
+                        if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
+                            ForceJoinGuild(Character);
+                    }
                     ImGui::SameLine();
                     if (ImGui::Button("MaskIt"))
                     {
