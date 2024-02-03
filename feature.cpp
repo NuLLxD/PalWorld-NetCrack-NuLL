@@ -215,7 +215,6 @@ void AnyWhereTP(FVector& vector, bool IsSafe)
 	if (!pPalPlayerController || !pPalPlayerState)
 		return;
 
-	vector = { vector.X,vector.Y + 100,vector.Z };
 	FGuid guid = pPalPlayerController->GetPlayerUId();
 	pPalPlayerController->Transmitter->Player->RegisterRespawnLocation_ToServer(guid, vector);
 	pPalPlayerState->RequestRespawn();
@@ -672,7 +671,11 @@ void TpToLastWaypoint(bool removeAfter)
 	if (locationMarks.Count() < 1)
 		return;
 
-	AnyWhereTP(locationMarks[locationMarks.Count() - 1]->Location, false);
+	auto location = locationMarks[locationMarks.Count() - 1]->Location;
+
+	auto higherLocation = FVector(location.X, location.Y, 100000);
+
+	AnyWhereTP(higherLocation, false);
 			
 	if(removeAfter)
 		aPalUtility->GetLocationManager(world)->RemoveLocalCustomLocation(locationMarks[locationMarks.Count() - 1]->ID);
