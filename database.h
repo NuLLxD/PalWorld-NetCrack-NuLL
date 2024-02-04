@@ -1143,6 +1143,68 @@ namespace database
         "PalSphere_Debug",
     };
 
+
+    static std::string skillfruit[56] =
+    {
+        "SkillCard_DarkLaser",
+        "SkillCard_ShadowBall",
+        "SkillCard_PoisonShot",
+        "SkillCard_Psychokinesis",
+        "SkillCard_DarkWave",
+        "SkillCard_GhostFlame",
+        "SkillCard_DragonBreath",
+        "SkillCard_DragonWave",
+        "SkillCard_DragonCanon",
+        "SkillCard_DragonMeteor",
+        "SkillCard_RockLance",
+        "SkillCard_MudShot",
+        "SkillCard_SandTornado",
+        "SkillCard_StoneShotgun",
+        "SkillCard_ThrowRock",
+        "SkillCard_ThunderBall",
+        "SkillCard_Thunderbolt",
+        "SkillCard_LineThunder",
+        "SkillCard_LightningStrike",
+        "SkillCard_LockonLaser",
+        "SkillCard_ThunderFunnel",
+        "SkillCard_ElecWave",
+        "SkillCard_SpreadPulse",
+        "SkillCard_ThreeThunder",
+        "SkillCard_FireBall",
+        "SkillCard_FlareArrow",
+        "SkillCard_FlareTornado",
+        "SkillCard_FireBlast",
+        "SkillCard_Flamethrower",
+        "SkillCard_Inferno",
+        "SkillCard_FireSeed",
+        "SkillCard_GrassTornado",
+        "SkillCard_SeedMachinegun",
+        "SkillCard_SeedMine",
+        "SkillCard_SolarBeam",
+        "SkillCard_RootAttack",
+        "SkillCard_WindCutter",
+        "SkillCard_IcicleThrow",
+        "SkillCard_FrostBreath",
+        "SkillCard_BlizzardLance",
+        "SkillCard_IceBlade",
+        "SkillCard_IceMissile",
+        "SkillCard_AirCanon",
+        "SkillCard_SelfDestruct",
+        "SkillCard_HyperBeam",
+        "SkillCard_PowerBall",
+        "SkillCard_PowerShot",
+        "SkillCard_AcidRain",
+        "SkillCard_WaterBall",
+        "SkillCard_WaterGun",
+        "SkillCard_BubbleShot",
+        "SkillCard_HydroPump",
+        "SkillCard_AquaJet"
+    };
+
+
+
+
+
     static std::map<std::string, std::vector<float>>locationMap = {
     {"Anubis", { -170269, 94163.7, -1527.83 }},
     {"Astegon", { -320312, -120265, 18576 }},

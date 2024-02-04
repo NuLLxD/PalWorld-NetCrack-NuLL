@@ -499,6 +499,9 @@ namespace DX11_Base
 
             if (ImGui::Button("Tools", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
                 SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
+
+            if (ImGui::Button("Skill Fruits", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+                SpawnMultiple_ItemsToInventory(config::QuickItemSet::skillfruit);
         }
 
         void TABDebug()

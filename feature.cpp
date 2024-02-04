@@ -202,6 +202,10 @@ void SpawnMultiple_ItemsToInventory(config::QuickItemSet Set)
 		for (int i = 0; i < IM_ARRAYSIZE(database::tools); i++)
 			AddItemToInventoryByName(InventoryData, _strdup(database::tools[i].c_str()), 1);
 		break;
+	case 5:
+		for (int i = 0; i < IM_ARRAYSIZE(database::skillfruit); i++)
+			AddItemToInventoryByName(InventoryData, _strdup(database::skillfruit[i].c_str()), 1);
+		break;
 	default:
 		break;
 	}
