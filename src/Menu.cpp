@@ -31,6 +31,21 @@ void Damage(SDK::APalCharacter* character, int32 damage)
     Config.GetPalPlayerState()->SendDamage_ToServer(character, info);
 }
 
+void Heal(SDK::APalCharacter* character)
+{
+    int32 newHealth = 0;
+    SDK::UPalCharacterParameterComponent* pParams = character->CharacterParameterComponent;
+    if (!pParams)
+        return;
+
+    SDK::FFixedPoint64 maxHP = pParams->GetMaxHP();
+    newHealth = maxHP.Value;
+
+    SDK::FFixedPoint newHealthPoint = SDK::FFixedPoint(newHealth);
+    character->ReviveCharacter_ToServer(newHealthPoint);
+    character->ReviveCharacter(newHealthPoint);
+}
+
 int InputTextCallback(ImGuiInputTextCallbackData* data) {
     char inputChar = data->EventChar;
 
@@ -367,6 +382,85 @@ namespace DX11_Base
             ImGui::EndChild();
         }
 
+        void TABCageSpawner()
+        {
+            
+
+            std::initializer_list list = itemlist::pals;
+
+            int cur_size = 0;
+
+            static char pal_search[100];
+
+            ImGui::InputText("Search", pal_search, IM_ARRAYSIZE(pal_search));
+            ImGui::BeginChild("ScrollingRegion", ImVec2(0, 500), true);
+            for (const auto& pal : list) {
+                std::istringstream ss(pal);
+                std::string left_text, right_text;
+
+                std::getline(ss, left_text, '|');
+                std::getline(ss, right_text);
+
+                auto right_to_lower = right_text;
+                std::string pal_search_to_lower = pal_search;
+
+                std::transform(right_to_lower.begin(), right_to_lower.end(), right_to_lower.begin(), ::tolower);
+                std::transform(pal_search_to_lower.begin(), pal_search_to_lower.end(), pal_search_to_lower.begin(), ::tolower);
+
+                if (pal_search[0] != '\0' && (right_to_lower.find(pal_search_to_lower) == std::string::npos))
+                    continue;
+
+                cur_size += right_text.length();
+
+                ImGui::PushID(pal);
+                if (ImGui::Button(right_text.c_str()))
+                {
+                    strcpy_s(Config.palSpawnCage, (char*)left_text.c_str());
+                }
+                ImGui::PopID();
+            }
+ 
+
+            if (ImGui::Button("Add Pal To Nearby Cage", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))//
+            {
+                SDK::APalPlayerCharacter* pLocalPlayer = Config.GetPalPlayerCharacter();
+                if (!pLocalPlayer)
+                    return;
+
+                std::vector<SDK::AActor*> actors;
+
+                if (!config::GetAllActorsofType(SDK::APalCapturedCage::StaticClass(), &actors, true))
+                    return;
+
+                auto draw = ImGui::GetBackgroundDrawList();
+
+                for (auto actor : actors)
+                {
+                    SDK::APalCapturedCage* cage = static_cast<SDK::APalCapturedCage*>(actor); // Try to cast actor to APalCapturedCage
+                    if (!cage)
+                        continue; // Skip to the next actor if casting fails
+
+                    SDK::FVector actorLocation = cage->K2_GetActorLocation();
+                    SDK::FVector localPlayerLocation = pLocalPlayer->K2_GetActorLocation();
+                    float distanceTo = GetDistanceToActor(pLocalPlayer, cage);
+
+                    if (distanceTo < 50)
+                    {
+                        static SDK::UKismetStringLibrary* lib = SDK::UKismetStringLibrary::GetDefaultObj();
+
+                        std::string palname = Config.palSpawnCage;
+                        wchar_t  ws[255];
+                        swprintf(ws, 255, L"%hs", palname.c_str());
+                        SDK::FName Name = lib->Conv_StringToName(SDK::FString(ws));
+
+                        cage->SpawnPal(Name, 50);
+                    }
+                }
+            }
+            
+            ImGui::EndChild();
+        }
+
         void TABItemSpawner()
         {
             static int num_to_add = 1;
@@ -696,6 +790,12 @@ namespace DX11_Base
                         Damage(Character, (Character->CharacterParameterComponent->GetHP().Value - 1) / 1000);
                 }
                 ImGui::SameLine();
+                if (ImGui::Button("Heal"))
+                {
+                    if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
+                        Heal(Character);
+                }
+                ImGui::SameLine();
                 if (ImGui::Button("TP"))
                 {
                     if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
@@ -802,6 +902,11 @@ namespace DX11_Base
             if (ImGui::BeginTabItem("Item Spawner"))
             {
                 Tabs::TABItemSpawner();
+                ImGui::EndTabItem();
+            }
+            if (ImGui::BeginTabItem("Cage Spawner"))
+            {
+                Tabs::TABCageSpawner();
                 ImGui::EndTabItem();
             }
             if (ImGui::BeginTabItem("Teleporter"))

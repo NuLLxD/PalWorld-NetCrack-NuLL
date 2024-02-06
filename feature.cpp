@@ -26,7 +26,7 @@ void ESP()
 		return;
 
 	for (int i = 0; i < T.Count(); i++)
-		ImGui::GetBackgroundDrawList()->AddText(nullptr, 16, ImVec2(10, 10 + (i * 30)), ImColor(128,0,0), T[i]->GetFullName().c_str());
+		ImGui::GetBackgroundDrawList()->AddText(nullptr, 16, ImVec2(10, 10 + (i * 30)), ImColor(128, 0, 0), T[i]->GetFullName().c_str());
 }
 
 //	draws debug information for the input actor array
@@ -44,7 +44,7 @@ void ESP_DEBUG(float mDist, ImVec4 color, UClass* mEntType)
 	std::vector<AActor*> actors;
 	if (!config::GetAllActorsofType(mEntType, &actors, true))
 		return;
-	
+
 	auto draw = ImGui::GetBackgroundDrawList();
 
 	__int32 actorsCount = actors.size();
@@ -75,14 +75,14 @@ void ESP_DEBUG(float mDist, ImVec4 color, UClass* mEntType)
 }
 
 //	should only be called from a GUI thread with ImGui context
-void DrawUActorComponent(TArray<UActorComponent*> Comps,ImColor color)
+void DrawUActorComponent(TArray<UActorComponent*> Comps, ImColor color)
 {
 	ImGui::GetBackgroundDrawList()->AddText(nullptr, 16, ImVec2(ImGui::GetIO().DisplaySize.x / 2, ImGui::GetIO().DisplaySize.y / 2), color, "Drawing...");
 	if (!Comps.IsValid())
-		return; 
+		return;
 	for (int i = 0; i < Comps.Count(); i++)
 	{
-		
+
 		if (!Comps[i])
 			continue;
 
@@ -91,7 +91,7 @@ void DrawUActorComponent(TArray<UActorComponent*> Comps,ImColor color)
 }
 
 //	credit: 
-void UnlockAllEffigies() 
+void UnlockAllEffigies()
 {
 	APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
 	APalPlayerState* pPalPlayerState = Config.GetPalPlayerState();
@@ -104,7 +104,7 @@ void UnlockAllEffigies()
 
 	TUObjectArray* objects = world->GObjects;
 
-	for (int i = 0; i < objects->NumElements; ++i) 
+	for (int i = 0; i < objects->NumElements; ++i)
 	{
 		UObject* object = objects->GetByIndex(i);
 
@@ -390,7 +390,7 @@ void SetPlayerDefenseParam(__int32 mNewDef)
 	UPalCharacterParameterComponent* pParams = pPalPlayerCharacter->CharacterParameterComponent;
 	if (!pParams)
 		return;
-	
+
 	if (pParams->DefenseUp != mNewDef)
 		pParams->DefenseUp = mNewDef;
 }
@@ -631,7 +631,15 @@ void UnlockChest()
 			SDK::UPalMapObjectPasswordLockModule* locked = static_cast<SDK::UPalMapObjectPasswordLockModule*>(object);
 			if (locked) locked->LockState = SDK::EPalMapObjectPasswordLockState::Unlock;
 		}
+		if (object && object->IsA(SDK::APalMapObjectTreasureBox::StaticClass())) {
+			SDK::APalMapObjectTreasureBox* box = static_cast<SDK::APalMapObjectTreasureBox*>(object);
+			if (box) box->BroadcastTriggerOpen();
+		}
+
 	}
+
+
+
 }
 
 // credit: xCENTx
@@ -683,7 +691,7 @@ float GetDistanceToActor(AActor* pLocal, AActor* pTarget)
 {
 	if (!pLocal || !pTarget)
 		return -1.f;
-	
+
 	FVector pLocation = pLocal->K2_GetActorLocation();
 	FVector pTargetLocation = pTarget->K2_GetActorLocation();
 	double distance = sqrt(pow(pTargetLocation.X - pLocation.X, 2.0) + pow(pTargetLocation.Y - pLocation.Y, 2.0) + pow(pTargetLocation.Z - pLocation.Z, 2.0));
