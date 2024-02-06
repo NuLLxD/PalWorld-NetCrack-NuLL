@@ -361,7 +361,6 @@ namespace DX11_Base
             ImGui::Checkbox("Custom Waypoints", &Config.bisOpenWaypoints);
             if (ImGui::Button("Home", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
                 RespawnLocalPlayer(Config.IsSafe);
-
             ImGui::InputFloat3("Pos", Config.Pos);
             ImGui::SameLine();
             if (ImGui::Button("TP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
@@ -369,6 +368,23 @@ namespace DX11_Base
                 SDK::FVector vector = { Config.Pos[0],Config.Pos[1],Config.Pos[2] };
                 AnyWhereTP(vector, Config.IsSafe);
             }
+
+            if (ImGui::Button("LastWaypointTP")) // Credit: emoisback, bycEEE, w0dash
+            {
+
+                TpToLastWaypoint(Config.WaypointTpCleanup);
+            }
+
+            ImGui::SameLine();
+
+            ImGui::Checkbox("DeleteWaypointAfterTP", &Config.WaypointTpCleanup);
+
+            ImGui::SameLine();
+
+            // TP to every new waypoint that gets set
+            // TODO: button labeling (generally everywhere)
+            ImGui::Checkbox("AutomaticWaypointTP", &Config.AutoWaypointTP);
+
             ImGui::BeginChild("ScrollingRegion", ImVec2(0, 500), true);
             for (const auto& pair : database::locationMap)
             {
@@ -577,6 +593,9 @@ namespace DX11_Base
 
             if (ImGui::Button("Tools", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
                 SpawnMultiple_ItemsToInventory(config::QuickItemSet::tools);
+
+            if (ImGui::Button("Skill Fruits", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+                SpawnMultiple_ItemsToInventory(config::QuickItemSet::skillfruit);
         }
 
         void TABDebug()
@@ -807,12 +826,6 @@ namespace DX11_Base
                         }
                     }
                 }
-                ImGui::SameLine();
-                if (ImGui::Button("Join Guild"))
-                {
-                    if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
-                        ForceJoinGuild(Character);
-                }
                 /*if (Character->IsA(SDK::APalPlayerCharacter::StaticClass()))
                 {
                     ImGui::SameLine();
@@ -831,6 +844,12 @@ namespace DX11_Base
                 }*/
                 if (Character->IsA(SDK::APalPlayerCharacter::StaticClass()))
                 {
+                    ImGui::SameLine();
+                    if (ImGui::Button("Join Guild"))
+                    {
+                        if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
+                            ForceJoinGuild(Character);
+                    }
                     ImGui::SameLine();
                     if (ImGui::Button("MaskIt"))
                     {
@@ -1037,6 +1056,12 @@ namespace DX11_Base
         {
             SetInfiniteAmmo(false);
         }
+        if (Config.AutoWaypointTP && GetCurrentWaypointCount() > Config.AutoWaypointTpLastCount)
+        {
+            TpToLastWaypoint(true);
+        }
+
+        Config.AutoWaypointTpLastCount = GetCurrentWaypointCount();
 
         //  
         //  SetDemiGodMode(Config.IsMuteki);

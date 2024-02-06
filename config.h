@@ -58,6 +58,9 @@ public:
 	char palSpawnCage[20] = "";
 	int AddItemSlot = 0;
 	int AddItemCount = 2;
+	bool WaypointTpCleanup;
+	int AutoWaypointTpLastCount;
+	bool AutoWaypointTP;
 
 	enum QuickItemSet
 	{
@@ -65,8 +68,8 @@ public:
 		basic_items_single,
 		pal_unlock_skills,
 		spheres,
-		tools
-
+		tools,
+		skillfruit,
 	};
 	//Filtered Items
 	std::vector<std::string> db_filteredItems;

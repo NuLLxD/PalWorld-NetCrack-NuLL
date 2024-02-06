@@ -202,6 +202,10 @@ void SpawnMultiple_ItemsToInventory(config::QuickItemSet Set)
 		for (int i = 0; i < IM_ARRAYSIZE(database::tools); i++)
 			AddItemToInventoryByName(InventoryData, _strdup(database::tools[i].c_str()), 1);
 		break;
+	case 5:
+		for (int i = 0; i < IM_ARRAYSIZE(database::skillfruit); i++)
+			AddItemToInventoryByName(InventoryData, _strdup(database::skillfruit[i].c_str()), 1);
+		break;
 	default:
 		break;
 	}
@@ -664,6 +668,30 @@ void DeleteWaypoint(DWORD index)
 		Config.db_waypoints.erase(Config.db_waypoints.begin() + index);
 	}
 	// Optionally, you can also update your logic to save changes if needed
+}
+
+int GetCurrentWaypointCount()
+{
+	return SDK::UPalUtility::GetDefaultObj()->GetLocationManager(Config.GetUWorld())->CustomLocations.Count();
+}
+
+void TpToLastWaypoint(bool removeAfter)
+{
+	auto world = Config.GetUWorld();
+	auto aPalUtility = SDK::UPalUtility::GetDefaultObj();
+	auto locationMarks = aPalUtility->GetLocationManager(world)->CustomLocations;
+
+	if (locationMarks.Count() < 1)
+		return;
+
+	auto location = locationMarks[locationMarks.Count() - 1]->Location;
+
+	auto higherLocation = FVector(location.X, location.Y, 100000);
+
+	AnyWhereTP(higherLocation, false);
+
+	if (removeAfter)
+		aPalUtility->GetLocationManager(world)->RemoveLocalCustomLocation(locationMarks[locationMarks.Count() - 1]->ID);
 }
 
 void RenderWaypointsToScreen()

@@ -69,4 +69,8 @@ void RenderWaypointsToScreen();
 
 void SetPlayerHealth(__int32 newHealth);
 
+int GetCurrentWaypointCount();
+
+void TpToLastWaypoint(bool removeAfter = true);
+
 float GetDistanceToActor(SDK::AActor* pLocal, SDK::AActor* pTarget);

@@ -44,6 +44,7 @@ This assumes you have Visual Studio 2022 installed
 
 - All Boss Locations
 - Custom TP Locations
+- Teleport to Waypoint
 
 ## Entity List
 
