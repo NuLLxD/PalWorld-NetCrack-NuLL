@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# SDK files
+libs/SDKLibrary/SDK/lib/
+libs/SDKLibrary/SDK/x64/
+libs/SDKLibrary/SDK/x86/
+
 # User-specific files
 *.rsuser
 *.suo
