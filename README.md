@@ -3,12 +3,12 @@
 Simple internal built with various code snippets and SDK from UC.me
 
 > [!Note]
-> Built for Steam release v0.1.4.1
+> Built for Steam release v0.1.4.1 Hotfix #1.
 
->[!Warning]
->Incompatible with other programs and overlays which also access the game. 
->For example:
->- blitz.gg
+> [!Warning]
+> Incompatible with other programs and overlays which also access the game.
+> For example:
+> - blitz.gg
 
 ## Steps to Build
 
@@ -42,7 +42,9 @@ This assumes you have Visual Studio 2022 installed
 - Easy Pal Condensation - Requires only 1 Pal for all upgrade levels
 
 ## Cage Spawner - Thanks to contributor FriendlyButFire
+
 - Spawn any Pal you want in cage
+
 > [!Note]
 > This only works in Single Player/Co-Op Host game modes
 

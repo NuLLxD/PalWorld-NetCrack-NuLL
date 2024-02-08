@@ -24,11 +24,11 @@ typedef unsigned __int64 uint64;
 
 namespace Offsets
 {
-	constexpr int32 GObjects = 0x087B5200;
-	constexpr int32 AppendString = 0x02CD8250;
-	constexpr int32 GNames = 0x02CD26B4;
-	constexpr int32 ProcessEvent = 0x02E5A3E0;
-	constexpr int32 ProcessEventIdx   = 0x0000004C;
+	constexpr int32 GObjects = 0x087B5400;
+	constexpr int32 AppendString = 0x02CD88F0;
+	constexpr int32 GNames = 0x00000000;
+	constexpr int32 ProcessEvent = 0x02E5AA80;
+	constexpr int32 ProcessEventIdx = 0x0000004C;
 }
 
 #include "PropertyFixup.hpp"
