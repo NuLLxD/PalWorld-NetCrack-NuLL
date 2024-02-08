@@ -757,7 +757,7 @@ namespace DX11_Base
                         continue;
                     }
                 }
-                if (T[i]->IsA(SDK::APalPlayerCharacter::StaticClass()))
+                if (T[i]->IsA(SDK::APalPlayerCharacter::StaticClass()) || Character->StaticCharacterParameterComponent->IsPal)
                 {
                     if (!Character)
                         continue;
@@ -787,14 +787,12 @@ namespace DX11_Base
                         name = SDK::FString(ws);
                     }
                 }
-                if (Config.filterPal)
-                {
-                    if (Character->StaticCharacterParameterComponent->IsPal)
-                    {
-                        Character->CharacterParameterComponent->GetNickname(&name);
-                    }
-                }
-                ImGui::Text(name.ToString().c_str());
+                ImGui::Text(
+                    "%s%s%s",
+                    Character->StaticCharacterParameterComponent->IsRarePal() ? "** " : "",
+                    name.ToString().c_str(),
+                    Character->StaticCharacterParameterComponent->IsRarePal() ? " **" : ""
+                );
                 ImGui::SameLine();
                 ImGui::PushID(i);
                 if (ImGui::Button("Kill"))
